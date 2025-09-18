@@ -2,7 +2,7 @@
 # Descripción general
 Este trabajo busca evaluar la relación entre el sentimiento en el mercado de criptomonedas, medido a través del Fear & Greed Index (FGI) aplicado especialmente al Bitcoin, y el tipo de cambio de monedas emergentes, en particular el sol peruano.
 
-El análisis incluye además variables de control relevantes como el DXY (Índice del dólar estadounidense), el VIX (Índice de volatilidad del mercado), el BTC (Precio histórico del Bitcoin), y tres nuevos activos financieros: el oro (Gold, GC=F), las letras del Tesoro de 13 semanas (^IRX) y los bonos del Tesoro a 5 años (^FVX).
+El análisis incluye además variables de control relevantes como el DXY (Índice del dólar estadounidense), el VIX (Índice de volatilidad del mercado), el BTC (Precio histórico del Bitcoin), y tres nuevos activos financieros: el oro  (GC=F), las letras del Tesoro de 13 semanas (^IRX) y los bonos del Tesoro a 5 años (FVX).
 
 # Fuentes de datos
 Fear & Greed Index (FGI): datos obtenidos desde la API de Alternative.me
@@ -24,9 +24,9 @@ Fecha de última actualización de los datos: Se consideraron observaciones hast
 
 - Gold (GC=F): Precio spot del oro, considerado activo refugio en contextos de incertidumbre.
 
-- TBills_13w (^IRX): Rendimiento de las letras del Tesoro de EE. UU. a 13 semanas, indicador de la política monetaria de corto plazo.
+- TBills_13w (IRX): Rendimiento de las letras del Tesoro de EE. UU. a 13 semanas, indicador de la política monetaria de corto plazo.
 
-- Treasury_5y (^FVX): Rendimiento de los bonos del Tesoro de EE. UU. a 5 años, indicador de expectativas de tasas de interés de mediano plazo.
+- Treasury_5y (FVX): Rendimiento de los bonos del Tesoro de EE. UU. a 5 años, indicador de expectativas de tasas de interés de mediano plazo.
 
 # Ejecución del Notebook
 El notebook se organiza en las siguientes secciones:
@@ -53,6 +53,11 @@ El notebook se organiza en las siguientes secciones:
 4. Conclusiones
 - Discusión sobre los hallazgos y su relevancia en el contexto del mercado cambiario.
   
-# Resultados esperados
-- Identificación de correlaciones entre el sentimiento en criptomonedas y el comportamiento del tipo de cambio.
-- Evaluación comparativa de la volatilidad entre activos tradicionales (USD/PEN, DXY, VIX, TBills, Treasury, Gold) y el mercado cripto (Bitcoin).
+# Conclusiones 
+- El Fear & Greed Index (sentimiento cripto) no muestra relación estadísticamente significativa con el tipo de cambio USD/PEN (ρ ≈ 0.07). Esto indica que no es un determinante importante de la dinámica cambiaria peruana.
+- Variables globales como el DXY y, en menor medida, el precio de Bitcoin, presentan correlaciones más relevantes con el tipo de cambio (ρDXY ≈ 0.31, ρBTC ≈ 0.52), mostrando que el sol responde principalmente a factores internacionales.
+- El VIX y el FGI aportan información sobre percepción de riesgo y sentimiento especulativo, pero su influencia directa sobre el tipo de cambio en Perú es marginal (ρVIX ≈ 0.09).
+- En términos generales, el tipo de cambio en Perú se encuentra más condicionado por variables externas tradicionales que por el sentimiento cripto.
+- La correlación del Bitcoin con USD/PEN refleja más su propia volatilidad que un canal estable de transmisión hacia el mercado cambiario peruano.
+- El oro muestra una correlación baja y estable con el USD/PEN, confirmando su rol de activo refugio más vinculado a la aversión global al riesgo que a los movimientos cambiarios locales.
+- Los rendimientos de los bonos del Tesoro de EE. UU. (T-Bills 13w y Treasury 5y) evidencian una correlación positiva con el tipo de cambio peruano, lo que sugiere que las expectativas de tasas de interés en EE. UU. influyen directamente en la fortaleza del dólar frente al sol.
