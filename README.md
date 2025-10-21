@@ -61,3 +61,63 @@ El notebook se organiza en las siguientes secciones:
 - La correlación del Bitcoin con USD/PEN refleja más su propia volatilidad que un canal estable de transmisión hacia el mercado cambiario peruano.
 - El oro muestra una correlación baja y estable con el USD/PEN, confirmando su rol de activo refugio más vinculado a la aversión global al riesgo que a los movimientos cambiarios locales.
 - Los rendimientos de los bonos del Tesoro de EE. UU. (T-Bills 13w y Treasury 5y) evidencian una correlación positiva con el tipo de cambio peruano, lo que sugiere que las expectativas de tasas de interés en EE. UU. influyen directamente en la fortaleza del dólar frente al sol.
+
+# TRABAJO 2
+Sentimiento en el mercado de criptomonedas y su relación con el tipo de cambio del sol peruano
+
+Este proyecto analiza si existe una correlación significativa entre el sentimiento en el mercado de criptomonedas, medido por el Fear & Greed Index (FGI), y el tipo de cambio del sol peruano.
+A través de modelos econométricos OLS (simples y complejos), se busca evaluar si el sentimiento financiero global influye en los retornos diarios del tipo de cambio.
+
+# Estructura del proyecto
+Feature Engineering, limpieza y preparación de datos
+Se construyen las variables necesarias para el modelado:
+Retorno logarítmico diario del tipo de cambio (ret_USD), definido como la variable objetivo.
+Rezagos, promedios móviles y transformaciones cuadráticas del FGI.
+Rezagos de variables de control: DXY, VIX, Bitcoin, Oro, T-Bills y Treasury 5y.
+Interacción FGI × DXY para capturar efectos combinados.
+Se eliminan valores infinitos y faltantes, aplicando forward-fill cuando corresponde. Finalmente, se divide la muestra en train y test, y se define un modelo base para referencia.
+
+# Modelo base (Baseline)
+El modelo base predice siempre el valor medio del retorno del tipo de cambio en el conjunto de entrenamiento.
+Este modelo sirve como referencia para evaluar si los modelos econométricos logran mejorar la capacidad predictiva.
+El desempeño se evalúa con el Mean Squared Error (MSE) en el conjunto de prueba.
+
+# Modelo OLS simple
+Se estima un modelo de regresión lineal en el que ret_USD depende del FGI rezagado (FGI_lag1).
+Se utilizan errores robustos HAC (Newey-West) para corregir heterocedasticidad y autocorrelación.
+Se reportan los coeficientes, el R², la significancia estadística y pruebas de diagnóstico (Durbin–Watson y Breusch–Pagan).
+El desempeño se evalúa mediante el MSE en test.
+
+# Modelo OLS complejo
+Se amplía la especificación incluyendo:
+Rezagos del FGI y su término cuadrático.
+Promedios móviles e interacciones con el DXY.
+Rezagos de las variables de control (VIX, Bitcoin, Oro, T-Bills y Treasury 5y).
+Este modelo busca capturar relaciones no lineales y efectos conjuntos.
+También se utilizan errores HAC y se evalúa el desempeño mediante el MSE y el R² ajustado.
+
+# Validación cruzada temporal
+Se emplea una validación cruzada que respeta la estructura temporal de los datos.
+Se calculan el MSE promedio y su desviación estándar para cada modelo (baseline, simple y complejo), analizando la estabilidad y capacidad de generalización.
+
+# Comparación de modelos
+Se construye una tabla comparativa con los resultados de los tres modelos.
+El OLS Simple (FGI) obtiene el menor error cuadrático medio (MSE = 0.1013) en el conjunto de prueba, mostrando un equilibrio óptimo entre simplicidad y rendimiento.
+El modelo complejo, aunque más detallado, no mejora la capacidad predictiva y presenta mayor variabilidad.
+
+# Evaluación final en el conjunto de prueba
+El modelo ganador (OLS Simple) se reentrena con todo el conjunto de entrenamiento y se evalúa en los datos de prueba.
+Los resultados confirman que el rendimiento fuera de muestra es consistente con la validación cruzada, lo que demuestra ausencia de sobreajuste y un desempeño estable.
+
+# Conclusiones
+Modelo ganador: OLS Simple con FGI rezagado (FGI_lag1).
+Desempeño: MSE = 0.1013 y R² ≈ 0.001; bajo poder explicativo pero comportamiento estable.
+Hallazgos clave: El coeficiente del FGI es negativo y no significativo, indicando una relación débil entre el sentimiento en criptomonedas y el tipo de cambio del sol peruano.
+Consistencia teórica: Los resultados son coherentes con la literatura que señala que los movimientos cambiarios en economías emergentes responden más a factores macrofinancieros estructurales (Engel & West, 2005; Calvo & Reinhart, 2002).
+Limitaciones: Forma funcional lineal, ruido en datos diarios y ausencia de variables de intervención o flujos de capital.
+Próximos pasos: Probar modelos no lineales o dinámicos (VAR, GARCH), usar frecuencias semanales/mensuales e incorporar variables macroeconómicas adicionales.
+
+# Referencias
+- Calvo, G. A., & Reinhart, C. M. (2002). Fear of Floating. Quarterly Journal of Economics, 117(2), 379–408.
+- Engel, C., & West, K. D. (2005). Exchange Rates and Fundamentals. Journal of Political Economy, 113(3), 485–517.
+- Fama, E. F. (1970). Efficient Capital Markets: A Review of Theory and Empirical Work. Journal of Finance, 25(2), 383–417.
