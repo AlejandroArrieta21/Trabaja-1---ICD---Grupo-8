@@ -211,17 +211,20 @@ El scaler se guarda en:
 scaler.joblib
 # 10. Modelos y Tuning
 Todos los modelos usan TimeSeriesSplit con 5 folds.
-🔹 Ridge Regression
+
+- Ridge Regression
 Búsqueda automática de alpha con RidgeCV.
 Se evalúa mediante MSE negativo.
 Guardado como:
 ridge_model.joblib
-🔹 Random Forest Regressor
+
+- Random Forest Regressor
 GridSearch sobre hiperparámetros: profundidad, n_estimators, max_features, etc.
 Validación con TimeSeriesSplit.
 Guardado como:
 rf_model.joblib
-🔹 XGBoost Regressor (si está disponible)
+
+- XGBoost Regressor (si está disponible)
 GridSearchCV sobre parámetros: profundidad, n_estimators, learning rate, subsampling, etc.
 Guardado como:
 xgb_model.joblib
