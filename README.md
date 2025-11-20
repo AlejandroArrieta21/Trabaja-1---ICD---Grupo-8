@@ -272,9 +272,9 @@ Esto refleja que el tipo de cambio peruano es más sensible a **condiciones fina
 ---
 ## Referencias académicas
 
-Menkhoff, L., Sarno, L., Schmeling, M., & Schrimpf, A. (2012). Carry Trades and Global Foreign Exchange Volatility. Journal of Finance.
-Meese, R., & Rogoff, K. (1983). Empirical exchange rate models of the seventies. Journal of International Economics.
-Bianchi, D. (2022). Cryptocurrencies as an Asset Class? An Empirical Assessment. Journal of Financial Economics.
-Katsiampa, P. (2019). Volatility co-movement between Bitcoin and Ether. Economics Letters.
+- Menkhoff, L., Sarno, L., Schmeling, M., & Schrimpf, A. (2012). Carry Trades and Global Foreign Exchange Volatility. Journal of Finance.
+- Meese, R., & Rogoff, K. (1983). Empirical exchange rate models of the seventies. Journal of International Economics.
+- Bianchi, D. (2022). Cryptocurrencies as an Asset Class? An Empirical Assessment. Journal of Financial Economics.
+- Katsiampa, P. (2019). Volatility co-movement between Bitcoin and Ether. Economics Letters.
 
 ---
