@@ -154,10 +154,11 @@ Verifica si XGBoost está instalado para habilitarlo opcionalmente.
 
 # 4. Carga del dataset
 El script permite dos modos:
-🔹 A. Modo Google Colab
+
+- A. Modo Google Colab
 Usa files.upload() para seleccionar manualmente el archivo:
 DATASET_FINAL.xlsx.
-🔹 B. Modo Local
+- B. Modo Local
 Carga el archivo desde una ruta predefinida en el sistema.
 Una vez cargado, el script muestra:
 Dimensiones del dataset.
