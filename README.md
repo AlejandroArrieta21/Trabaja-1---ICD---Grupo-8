@@ -135,9 +135,9 @@ Este proyecto analiza si el **sentimiento en mercados de criptomonedas**—medid
 
 El análisis se desarrolla bajo un enfoque **de regresión para series de tiempo**, no de clasificación. Se trabaja con tres modelos principales:
 
-- **Ridge Regression**
-- **Random Forest Regressor**
-- **XGBoost Regressor** (si la librería está disponible)
+- Ridge Regression
+- Random Forest Regressor
+- XGBoost Regressor (si la librería está disponible)
 
 El objetivo final es comparar su desempeño fuera de muestra utilizando *Mean Squared Error (MSE)* y analizar la relevancia de cada predictor para entender los determinantes del tipo de cambio peruano.
 
