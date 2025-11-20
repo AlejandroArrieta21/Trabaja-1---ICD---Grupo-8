@@ -123,11 +123,11 @@ Próximos pasos: Probar modelos no lineales o dinámicos (VAR, GARCH), usar frec
 - Fama, E. F. (1970). Efficient Capital Markets: A Review of Theory and Empirical Work. Journal of Finance, 25(2), 383–417.
 
 
-# 📘 Trabajo 3 – Modelado Regresivo para Tipo de Cambio con Sentimiento Cripto  
+# Trabajo 3 – Modelado Regresivo para Tipo de Cambio con Sentimiento Cripto  
 
 ---
 
-## 📍 1. Descripción del proyecto
+##  1. Descripción del proyecto
 
 Este proyecto analiza si el **sentimiento en mercados de criptomonedas**—medido mediante el *Fear & Greed Index (FGI)* y variables asociadas al precio de Bitcoin—posee poder predictivo sobre los **retornos diarios del tipo de cambio PEN/USD**.  
 
@@ -141,7 +141,7 @@ El objetivo final es comparar su desempeño fuera de muestra utilizando *Mean Sq
 
 ---
 
-## 📁 2. Flujo general del proyecto
+##  2. Flujo general del proyecto
 
 | Etapa | Descripción |
 |-------|------------|
@@ -156,7 +156,7 @@ El objetivo final es comparar su desempeño fuera de muestra utilizando *Mean Sq
 
 ---
 
-## ⚙️ 3. Configuración del entorno
+##  3. Configuración del entorno
 
 El script detecta automáticamente si corre en:
 
@@ -168,7 +168,7 @@ Se importan bibliotecas estándar:
 
 ---
 
-## 📂 4. Ingeniería de características
+##  4. Ingeniería de características
 
 El dataset se transforma para capturar dinámicas intertemporales y efectos globales:
 
@@ -183,7 +183,7 @@ Se exporta un dataset limpio para reproducibilidad:
 
 ---
 
-## 📊 5. PCA (diagnóstico estructural)
+##  5. PCA (diagnóstico estructural)
 
 Se utiliza PCA únicamente para inspección estadística:
 
@@ -196,11 +196,11 @@ No se usa PCA para entrenar modelos, ya que el objetivo es interpretación, no c
 
 ---
 
-## 🧪 6. Modelos y validación
+##  6. Modelos y validación
 
 Todos los modelos utilizan validación tipo **TimeSeriesSplit (5 folds)** para respetar la naturaleza temporal y evitar *data leakage*.
 
-### **🔹 Ridge Regression**
+### ** Ridge Regression**
 - Búsqueda automatizada de `alpha` con `RidgeCV`
 - Penalización L2 para reducir varianza del estimador
 - Enfoque útil como benchmark lineal regularizado
@@ -210,7 +210,7 @@ Modelo guardado como:
 
 ---
 
-### **🔹 Random Forest Regressor**
+### ** Random Forest Regressor**
 - GridSearch con variaciones en profundidad, número de árboles, `max_features`, etc.
 - Captura relaciones no lineales y efectos de interacción
 - Importancias calculadas mediante reducción de impureza
@@ -220,7 +220,7 @@ Modelo guardado como:
 
 ---
 
-### **🔹 XGBoost Regressor**
+### ** XGBoost Regressor**
 *(si la librería está disponible)*
 
 - Boosting secuencial con learning rate bajo
@@ -232,7 +232,7 @@ Modelo guardado como:
 
 ---
 
-## 📈 7. Resultados y Desempeño (Test MSE)
+##  7. Resultados y Desempeño (Test MSE)
 
 | Modelo | MSE |
 |--------|------|
@@ -240,14 +240,14 @@ Modelo guardado como:
 | **Random Forest** | 0.116575 |
 | **XGBoost** | **0.106583** |
 
-### **📌 Interpretación del desempeño**
+### ** Interpretación del desempeño**
 El modelo XGBoost obtiene el menor error fuera de muestra, lo que sugiere que la relación entre las variables financieras y el retorno cambiario presenta **patrones no lineales** y posiblemente dependientes del estado del mercado, difíciles de capturar con modelos lineales o árboles independientes.
 
 Sin embargo, la diferencia de desempeño entre modelos sigue siendo moderada, lo cual evidencia que **la predictibilidad del tipo de cambio diario es limitada**, incluso incorporando sentimiento cripto y factores globales.
 
 ---
 
-## 🔍 8. Interpretación económica
+##  8. Interpretación económica
 
 Los resultados sugieren que:
 
@@ -266,3 +266,15 @@ Esto refleja que el tipo de cambio peruano es más sensible a **condiciones fina
 - El sentimiento cripto (FGI) afecta el tipo de cambio, pero con **baja relevancia causal frente a factores macro-financieros globales**.
 - Modelos no lineales (XGBoost) capturan mejor la dinámica, pero el poder predictivo sigue siendo limitado.
 - Los resultados coinciden con literatura que señala que mercados emergentes responden a shocks externos de riesgo y tasas internacionales más que a variables cripto.
+
+---
+📚 Referencias académicas
+
+Menkhoff, L., Sarno, L., Schmeling, M., & Schrimpf, A. (2012). Carry Trades and Global Foreign Exchange Volatility. Journal of Finance.
+
+Meese, R., & Rogoff, K. (1983). Empirical exchange rate models of the seventies. Journal of International Economics.
+
+Bianchi, D. (2022). Cryptocurrencies as an Asset Class? An Empirical Assessment. Journal of Financial Economics.
+
+Katsiampa, P. (2019). Volatility co-movement between Bitcoin and Ether. Economics Letters.
+---
