@@ -242,7 +242,7 @@ Modelo guardado como:
 | **Random Forest** | 0.116575 |
 | **XGBoost** | **0.106583** |
 
-### ** Interpretación del desempeño**
+###  Interpretación del desempeño
 El modelo XGBoost obtiene el menor error fuera de muestra, lo que sugiere que la relación entre las variables financieras y el retorno cambiario presenta **patrones no lineales** y posiblemente dependientes del estado del mercado, difíciles de capturar con modelos lineales o árboles independientes.
 
 Sin embargo, la diferencia de desempeño entre modelos sigue siendo moderada, lo cual evidencia que **la predictibilidad del tipo de cambio diario es limitada**, incluso incorporando sentimiento cripto y factores globales.
