@@ -122,6 +122,8 @@ Próximos pasos: Probar modelos no lineales o dinámicos (VAR, GARCH), usar frec
 - Engel, C., & West, K. D. (2005). Exchange Rates and Fundamentals. Journal of Political Economy, 113(3), 485–517.
 - Fama, E. F. (1970). Efficient Capital Markets: A Review of Theory and Empirical Work. Journal of Finance, 25(2), 383–417.
 
+---
+
 
 # Trabajo 3 – Modelado Regresivo para Tipo de Cambio con Sentimiento Cripto  
 
@@ -261,14 +263,14 @@ Esto refleja que el tipo de cambio peruano es más sensible a **condiciones fina
 
 ---
 
-## 🏁 9. Conclusiones
+##  9. Conclusiones
 
 - El sentimiento cripto (FGI) afecta el tipo de cambio, pero con **baja relevancia causal frente a factores macro-financieros globales**.
 - Modelos no lineales (XGBoost) capturan mejor la dinámica, pero el poder predictivo sigue siendo limitado.
 - Los resultados coinciden con literatura que señala que mercados emergentes responden a shocks externos de riesgo y tasas internacionales más que a variables cripto.
 
 ---
-📚 Referencias académicas
+Referencias académicas
 
 Menkhoff, L., Sarno, L., Schmeling, M., & Schrimpf, A. (2012). Carry Trades and Global Foreign Exchange Volatility. Journal of Finance.
 
