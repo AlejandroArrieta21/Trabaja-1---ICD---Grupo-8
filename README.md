@@ -202,7 +202,7 @@ No se usa PCA para entrenar modelos, ya que el objetivo es interpretación, no c
 
 Todos los modelos utilizan validación tipo **TimeSeriesSplit (5 folds)** para respetar la naturaleza temporal y evitar *data leakage*.
 
-### ** Ridge Regression**
+###  Ridge Regression
 - Búsqueda automatizada de `alpha` con `RidgeCV`
 - Penalización L2 para reducir varianza del estimador
 - Enfoque útil como benchmark lineal regularizado
@@ -212,7 +212,7 @@ Modelo guardado como:
 
 ---
 
-### ** Random Forest Regressor**
+###  Random Forest Regressor
 - GridSearch con variaciones en profundidad, número de árboles, `max_features`, etc.
 - Captura relaciones no lineales y efectos de interacción
 - Importancias calculadas mediante reducción de impureza
@@ -222,7 +222,7 @@ Modelo guardado como:
 
 ---
 
-### ** XGBoost Regressor**
+###  XGBoost Regressor
 *(si la librería está disponible)*
 
 - Boosting secuencial con learning rate bajo
