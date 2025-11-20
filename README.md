@@ -123,124 +123,146 @@ Próximos pasos: Probar modelos no lineales o dinámicos (VAR, GARCH), usar frec
 - Fama, E. F. (1970). Efficient Capital Markets: A Review of Theory and Empirical Work. Journal of Finance, 25(2), 383–417.
 
 
-# Trabajo 3 – Enfoque de Clasificación (adaptado a Regresión / Series de Tiempo)
-# 1. Descripción del proyecto
-Este proyecto corresponde al Trabajo 3, pero nuestro problema es, por naturaleza, un modelo de regresión / series de tiempo, no un problema de clasificación.
-Por ello, seguimos exclusivamente el Punto 2 del enunciado (modelos de regresión).
-El Punto 3 (modelos de clasificación) no constituye el enfoque principal del trabajo; sin embargo, dado que en etapas iniciales del desarrollo probamos algunos modelos clasificatorios, los incluimos solo como análisis exploratorio, siguiendo la flexibilidad permitida por el docente.
-El análisis principal, junto con las métricas, conclusiones y evaluación final del modelo, se basa exclusivamente en:
-Ridge Regression
-Random Forest Regressor
-XGBoost Regressor (opcional si la librería está disponible en el entorno)
+# 📘 Trabajo 3 – Modelado Regresivo para Tipo de Cambio con Sentimiento Cripto  
 
-# 2. Estructura general del código
-El proyecto completa el flujo estándar de un pipeline de Machine Learning para datos temporales:
-Configuración del entorno y carga de librerías
-Definición de rutas, parámetros y detección de entorno (Colab / local)
-Carga del dataset
-Preprocesamiento inicial y Exploratory Data Analysis (EDA)
-Ingeniería de características (features)
-Preparación del dataset para modelado (evitando data leakage)
-PCA para diagnóstico de estructura
-Split temporal train/test y escalamiento
-Entrenamiento de modelos (Ridge, Random Forest, XGBoost)
-Comparación final y exportación de resultados
+---
 
-# 3. Configuración del entorno
-El código:
-Importa librerías de manejo de datos (pandas, numpy), visualización (matplotlib, seaborn), ingeniería de características y modelado (scikit-learn).
-Configura estilos de gráficos, warnings y aleatoriedad con seed = 42.
-Verifica si XGBoost está instalado para habilitarlo opcionalmente.
+## 📍 1. Descripción del proyecto
 
-# 4. Carga del dataset
-El script permite dos modos:
+Este proyecto analiza si el **sentimiento en mercados de criptomonedas**—medido mediante el *Fear & Greed Index (FGI)* y variables asociadas al precio de Bitcoin—posee poder predictivo sobre los **retornos diarios del tipo de cambio PEN/USD**.  
 
-- A. Modo Google Colab
-Usa files.upload() para seleccionar manualmente el archivo:
-DATASET_FINAL.xlsx.
-- B. Modo Local
-Carga el archivo desde una ruta predefinida en el sistema.
-Una vez cargado, el script muestra:
-Dimensiones del dataset.
-Nombre de columnas.
+El análisis se desarrolla bajo un enfoque **de regresión para series de tiempo**, no de clasificación. Se trabaja con tres modelos principales:
 
-# 5. Preprocesamiento inicial y EDA
-Incluye:
-Conteo de valores nulos por columna.
-Vista de las primeras filas (df.head()).
-Cálculo preliminar de la matriz de correlación.
-Esto permite comprender la estructura de los datos antes del modelamiento.
+- **Ridge Regression**
+- **Random Forest Regressor**
+- **XGBoost Regressor** (si la librería está disponible)
 
-# 6. Ingeniería de características
-Se generan variables diseñadas para capturar la dinámica temporal:
-Cálculo del retorno logarítmico del tipo de cambio.
-Lags t−1, t−2 y t−7 para variables clave.
-Promedios móviles (rolling windows).
-Interacciones entre variables (ej. FGI × DXY).
-Reemplazo de valores infinitos por NaN.
-Exportación de una copia del dataset enriquecido (data_feature_engineered.csv).
+El objetivo final es comparar su desempeño fuera de muestra utilizando *Mean Squared Error (MSE)* y analizar la relevancia de cada predictor para entender los determinantes del tipo de cambio peruano.
 
-# 7. Preparación del dataset para modelado
-Incluye:
-Filtrado de filas con target disponible (ret_USD).
-Exclusión de variables no permitidas.
-Eliminación de columnas con más de 30% NaN.
-Ordenamiento temporal para evitar data leakage.
-Imputación forward-fill solo para variables exógenas.
-El resultado es un dataset listo para construir los modelos.
+---
 
-# 8. PCA (Análisis de Componentes Principales)
-Uso diagnóstico para analizar la estructura interna de los predictores:
-Se imputa con mediana solo para permitir el cálculo.
-Se estandarizan todas las variables (requisito del PCA).
-Se calcula varianza explicada y varianza acumulada.
-Se genera un scree plot.
-Se construye un biplot con los componentes PC1 y PC2.
-Resultados guardados en:
-pca_explained_variance.csv
-pca_scree.png
-pca_biplot.png
+## 📁 2. Flujo general del proyecto
 
-# 9. Construcción de X e y + split temporal
-Se seleccionan las features finales.
-Se eliminan filas con valores nulos en X.
-Se divide el dataset temporalmente:
-75% train
-25% test
-Se aplica StandardScaler ajustado solo con train para evitar filtración.
-El scaler se guarda en:
-scaler.joblib
-# 10. Modelos y Tuning
-Todos los modelos usan TimeSeriesSplit con 5 folds.
+| Etapa | Descripción |
+|-------|------------|
+| **Carga de datos** | Importación desde Colab o entorno local |
+| **Preprocesamiento** | Limpieza, manejo de nulos, alineación temporal |
+| **Feature engineering** | Lags, retornos, rolling means, interacciones |
+| **PCA** | Análisis estructural, no para reducción dimensional |
+| **Split temporal + escalamiento** | 75% train, 25% test / StandardScaler solo con train |
+| **Modelado** | Ridge, RF y XGB con validación TimeSeriesSplit |
+| **Evaluación** | Comparación MSE + gráficos + exportación |
+| **Interpretación** | Importancia de variables + análisis económico |
 
-- Ridge Regression
-Búsqueda automática de alpha con RidgeCV.
-Se evalúa mediante MSE negativo.
-Guardado como:
-ridge_model.joblib
+---
 
-- Random Forest Regressor
-GridSearch sobre hiperparámetros: profundidad, n_estimators, max_features, etc.
-Validación con TimeSeriesSplit.
-Guardado como:
-rf_model.joblib
+## ⚙️ 3. Configuración del entorno
 
-- XGBoost Regressor (si está disponible)
-GridSearchCV sobre parámetros: profundidad, n_estimators, learning rate, subsampling, etc.
-Guardado como:
-xgb_model.joblib
+El script detecta automáticamente si corre en:
 
-# 11. Comparación final de modelos
-Se construye una tabla comparando el MSE en el conjunto de prueba de:
-Ridge
-Random Forest
-XGBoost (si disponible)
-Resultado exportado como:
-results_models.csv
-Además, se guardan predicciones de cada modelo, junto con la serie observada, para análisis adicional o construcción de gráficos.
+- **Google Colab** → carga vía `files.upload()`
+- **Local** → rutas establecidas manualmente
 
-# 12. Conclusiones (orientación para el informe)
-El enfoque del proyecto es regresión para series de tiempo, no clasificación.
-Se siguieron todas las buenas prácticas para datos temporales (no shuffle, splits temporales, no leakage).
-Cada modelo fue evaluado de forma consistente con la estructura del dataset.
-La comparación final permite seleccionar el mejor modelo basado en desempeño fuera de muestra., el read me
+Se importan bibliotecas estándar:  
+`pandas`, `numpy`, `matplotlib`, `sklearn`, `joblib`, `xgboost` (opcional).
+
+---
+
+## 📂 4. Ingeniería de características
+
+El dataset se transforma para capturar dinámicas intertemporales y efectos globales:
+
+- Retorno logarítmico del tipo de cambio como variable objetivo
+- Lags t−1, t−2 y t−7 para activos financieros
+- Promedios móviles y rezagos para tasas y Bitcoin
+- Interacciones macro (ej. `FGI × DXY`)
+- Eliminación de valores infinitos y columnas con >30% NaN
+
+Se exporta un dataset limpio para reproducibilidad:  
+`data_feature_engineered.csv`
+
+---
+
+## 📊 5. PCA (diagnóstico estructural)
+
+Se utiliza PCA únicamente para inspección estadística:
+
+- Estandarización previa
+- Varianza explicada acumulada
+- *Scree plot* y *biplot*
+- Exportación de resultados y gráficos
+
+No se usa PCA para entrenar modelos, ya que el objetivo es interpretación, no compresión.
+
+---
+
+## 🧪 6. Modelos y validación
+
+Todos los modelos utilizan validación tipo **TimeSeriesSplit (5 folds)** para respetar la naturaleza temporal y evitar *data leakage*.
+
+### **🔹 Ridge Regression**
+- Búsqueda automatizada de `alpha` con `RidgeCV`
+- Penalización L2 para reducir varianza del estimador
+- Enfoque útil como benchmark lineal regularizado
+
+Modelo guardado como:  
+`ridge_model.joblib`
+
+---
+
+### **🔹 Random Forest Regressor**
+- GridSearch con variaciones en profundidad, número de árboles, `max_features`, etc.
+- Captura relaciones no lineales y efectos de interacción
+- Importancias calculadas mediante reducción de impureza
+
+Modelo guardado como:  
+`rf_model.joblib`
+
+---
+
+### **🔹 XGBoost Regressor**
+*(si la librería está disponible)*
+
+- Boosting secuencial con learning rate bajo
+- Tuning de profundidad, n_estimators, subsampling, colsample
+- Útil para patrones no lineales y efectos aditivos complejos
+
+Modelo guardado como:  
+`xgb_model.joblib`
+
+---
+
+## 📈 7. Resultados y Desempeño (Test MSE)
+
+| Modelo | MSE |
+|--------|------|
+| **Ridge** | 0.115199 |
+| **Random Forest** | 0.116575 |
+| **XGBoost** | **0.106583** |
+
+### **📌 Interpretación del desempeño**
+El modelo XGBoost obtiene el menor error fuera de muestra, lo que sugiere que la relación entre las variables financieras y el retorno cambiario presenta **patrones no lineales** y posiblemente dependientes del estado del mercado, difíciles de capturar con modelos lineales o árboles independientes.
+
+Sin embargo, la diferencia de desempeño entre modelos sigue siendo moderada, lo cual evidencia que **la predictibilidad del tipo de cambio diario es limitada**, incluso incorporando sentimiento cripto y factores globales.
+
+---
+
+## 🔍 8. Interpretación económica
+
+Los resultados sugieren que:
+
+- El sentimiento cripto aporta información **marginal pero no dominante**.
+- Las mayores importancias corresponden a:
+  - Precios rezagados de Bitcoin → transmisión especulativa
+  - Oro y VIX → aversión al riesgo global
+  - Tasas del Tesoro de EE.UU. → canal financiero internacional
+
+Esto refleja que el tipo de cambio peruano es más sensible a **condiciones financieras globales** que al interés especulativo del mercado cripto.
+
+---
+
+## 🏁 9. Conclusiones
+
+- El sentimiento cripto (FGI) afecta el tipo de cambio, pero con **baja relevancia causal frente a factores macro-financieros globales**.
+- Modelos no lineales (XGBoost) capturan mejor la dinámica, pero el poder predictivo sigue siendo limitado.
+- Los resultados coinciden con literatura que señala que mercados emergentes responden a shocks externos de riesgo y tasas internacionales más que a variables cripto.
